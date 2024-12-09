@@ -1,4 +1,8 @@
 # Fork of NativePHP/php-bin with gRPC support
+![GitHub release (with filter)](https://img.shields.io/github/v/release/SRWieZ/php-bin-with-grpc)
+![Packagist Downloads (custom server)](https://img.shields.io/packagist/dt/srwiez/php-bin-with-grpc)
+![GitHub Repo stars](https://img.shields.io/github/stars/SRWieZ/php-bin-with-grpc?style=flat)
+![Packagist License (custom server)](https://img.shields.io/packagist/l/srwiez/php-bin-with-grpc)
 
 This is a fork of the [NativePHP/php-bin](https://github.com/NativePHP/php-bin) repository with added support for gRPC.
 
