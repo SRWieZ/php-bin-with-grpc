@@ -11,7 +11,7 @@ Unless you need gRPC support, you should use the original repository.
 This package is meant to be used in an NativePHP app like this:
 
 ```shell
-composer require srwiez/php-bin-with-grpc --dev
+composer require srwiez/php-bin-with-grpc
 ```
 
 Open your `.env` file and add the following line:
