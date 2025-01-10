@@ -33,6 +33,11 @@ We currently support PHP versions 8.1 to 8.4, along with macOS and Linux.
 | 8.3 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
 | 8.4 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
 
+## Resources
+- https://github.com/grpc/grpc/tree/master/src/php
+- https://pecl.php.net/package/grpc
+- https://grpc.io/docs/
+
 ## License
 
 This repository is simply a redistribution of PHP. As such its use and further distribution is subject to the various
