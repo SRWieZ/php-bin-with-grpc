@@ -111,20 +111,6 @@ jobs:
           extensions: curl, openssl, mbstring, sodium, tokenizer
           ini-values: memory_limit=-1
 
-      # Cache composer dependencies
-      - id: cache-spc-composer-deps
-        uses: actions/cache@v4
-        with:
-          path: ../static-php-cli/vendor
-          key: composer-dependencies
-
-      - name: Install SPC Composer dependencies
-        if: steps.cache-spc-composer-deps.outputs.cache-hit != 'true'
-        run: |
-          cd ../static-php-cli
-          composer update --no-dev --classmap-authoritative
-          cd ../php-bin
-
       - name: SPC doctor
         run: |
           cd ../static-php-cli
