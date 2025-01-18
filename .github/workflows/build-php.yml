@@ -25,21 +25,51 @@ jobs:
       #      max-parallel: 1
       matrix:
         version: [ "8.1", "8.2", "8.3", "8.4" ]
-        os: [ "macos-13", "macos-latest", "ubuntu-latest" ]
+#        os: [ "macos-13", "macos-latest", "ubuntu-24.04", "ubuntu-24.04-arm" ]
+        os: ["ubuntu-24.04-arm" ]
 
     continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set SPC URL for macos-13
+        shell: bash
+        if: matrix.os == 'macos-13'
+        run: echo "SPC_URL=https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-macos-x86_64" >> $GITHUB_ENV
+
+      - name: Set SPC URL for macos-latest
+        shell: bash
+        if: matrix.os == 'macos-latest'
+        run: echo "SPC_URL=https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-macos-aarch64" >> $GITHUB_ENV
+
+      - name: Set SPC URL for ubuntu-latest and ubuntu-24.04
+        shell: bash
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04'
+        run: echo "SPC_URL=https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-linux-x86_64" >> $GITHUB_ENV
+
+      - name: Set SPC URL for ubuntu-24.04-arm
+        shell: bash
+        if: matrix.os == 'ubuntu-24.04-arm'
+        run: echo "SPC_URL=https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-linux-aarch64" >> $GITHUB_ENV
+
+      - name: Set SPC URL for windows-latest
+        shell: bash
+        if: matrix.os == 'windows-latest'
+        run: echo "SPC_URL=https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-windows-x64.exe" >> $GITHUB_ENV
+
       - name: Download SPC
         shell: bash
         run: |
           cd ..
-          git clone https://github.com/crazywhalecc/static-php-cli.git
-          cd static-php-cli
-          git checkout main
-          cd ../
+          curl -fsSL -o spc ${{ env.SPC_URL }}
+          chmod +x spc
+          [ ! -d static-php-cli/bin ] && mkdir -p static-php-cli/bin
+          mv spc static-php-cli/bin/
+
+      - name: Change directory
+        shell: bash
+        run: |
           [ ! -d php-bin ] && mkdir -p php-bin
           cd php-bin
 
@@ -52,7 +82,7 @@ jobs:
         run: echo "SPC_BUILD_ARCH=x64" >> $GITHUB_ENV
 
       - shell: bash
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-24.04-arm'
         run: echo "SPC_BUILD_ARCH=arm64" >> $GITHUB_ENV
 
       - shell: bash
@@ -70,7 +100,7 @@ jobs:
         run: echo "SPC_BUILD_OS=win" >> $GITHUB_ENV
 
       - shell: bash
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04' || matrix.os == 'ubuntu-24.04-arm'
         run: echo "SPC_BUILD_OS=linux" >> $GITHUB_ENV
 
       - name: Setup system PHP
