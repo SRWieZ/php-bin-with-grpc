@@ -70,6 +70,7 @@ jobs:
       - name: Change directory
         shell: bash
         run: |
+          cd ..
           [ ! -d php-bin ] && mkdir -p php-bin
           cd php-bin
 
