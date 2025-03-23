@@ -1,4 +1,8 @@
 [
+    "pkg-config",
+    "lib-base",
+    "micro",
+    "php",
     "zlib",
     "openssl",
     "libiconv",
