@@ -1,4 +1,8 @@
 [
+    "pkg-config",
+    "lib-base",
+    "micro",
+    "php",
     "zlib",
     "openssl",
     "libiconv",
@@ -6,6 +10,9 @@
     "libxml2",
     "curl",
     "libpng",
+    "libwebp",
+    "libjpeg",
+    "freetype",
     "grpc",
     "onig",
     "ncurses",
