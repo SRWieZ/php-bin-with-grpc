@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       #      max-parallel: 1
       matrix:
-        version: [ "8.1", "8.2", "8.3", "8.4" ]
+        version: [ "8.3", "8.4" ]
         os: [ "windows-latest", "macos-13", "macos-latest", "ubuntu-24.04", "ubuntu-24.04-arm" ]
 
     continue-on-error: true
