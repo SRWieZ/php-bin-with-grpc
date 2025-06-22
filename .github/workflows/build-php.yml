@@ -5,16 +5,16 @@ permissions:
   pull-requests: write
 
 on:
-  schedule:
+#  schedule:
     # This will run weekly on Sunday at 06:00 UTC.
-    - cron: '0 6 * * 0'
+#    - cron: '0 6 * * 0'
     # This will run daily at 10:00 UTC.
   #      - cron: '0 10 * * *'
   workflow_dispatch:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SPC_VERSION: 2.5.1
+  SPC_VERSION: 2.6.0
 
 jobs:
   build:
@@ -26,8 +26,7 @@ jobs:
       #      max-parallel: 1
       matrix:
         version: [ "8.1", "8.2", "8.3", "8.4" ]
-        os: [ "macos-13", "macos-latest", "ubuntu-24.04", "ubuntu-24.04-arm" ]
-    #       "windows-latest"
+        os: [ "windows-latest", "macos-13", "macos-latest", "ubuntu-24.04", "ubuntu-24.04-arm" ]
 
     continue-on-error: true
 
