@@ -28,8 +28,6 @@ We currently support PHP versions 8.1 to 8.4, along with macOS and Linux.
 
 |     | MacOS x86 | MacOS arm64 | Linux x86 | Linux arm64 | Windows                                                                            |
 |-----|-----------|-------------|-----------|-------------|------------------------------------------------------------------------------------|
-| 8.1 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
-| 8.2 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
 | 8.3 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
 | 8.4 | ✅         | ✅           | ✅         | Soon        | [Unsupported at the moment](https://github.com/crazywhalecc/static-php-cli/issues) |
 
