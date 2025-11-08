@@ -34,8 +34,8 @@ jobs:
     - name: Commit changes
       if: env.CHANGED == 'true'
       run: |
-        git config --local user.email "simon.hamp@me.com"
-        git config --local user.name "Simon Hamp"
+        git config --local user.email "srwiez@gmail.com"
+        git config --local user.name "SRWieZ"
         git add cacert.pem
         git commit -m "Update CA file"
         git push
