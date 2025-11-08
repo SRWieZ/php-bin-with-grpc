@@ -122,7 +122,7 @@ jobs:
       - name: SPC doctor
         run: |
           cd ../static-php-cli
-          ./bin/${{ env.SPC_BINARY }} doctor
+          ./bin/${{ env.SPC_BINARY }} doctor --auto-fix
           cd ../php-bin
 
       - name: Read PHP extensions from file
