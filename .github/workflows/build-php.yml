@@ -14,7 +14,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SPC_VERSION: 2.6.1
+  SPC_VERSION: 2.7.6
 
 jobs:
   build:
