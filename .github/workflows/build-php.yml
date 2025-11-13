@@ -11,6 +11,17 @@ on:
     # This will run daily at 10:00 UTC.
   #      - cron: '0 10 * * *'
   workflow_dispatch:
+    inputs:
+      os:
+        description: 'Operating system to build'
+        required: true
+        type: choice
+        options:
+          - all
+          - linux
+          - macos
+          - windows
+        default: all
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,6 +31,11 @@ jobs:
   build:
     name: ${{ matrix.version }} ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: |
+      inputs.os == 'all' ||
+      (inputs.os == 'linux' && contains(matrix.os, 'ubuntu')) ||
+      (inputs.os == 'macos' && contains(matrix.os, 'macos')) ||
+      (inputs.os == 'windows' && matrix.os == 'windows-latest')
 
     strategy:
       fail-fast: false
