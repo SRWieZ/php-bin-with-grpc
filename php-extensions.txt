@@ -1,1 +1,1 @@
-bcmath,calendar,ctype,curl,dba,dom,exif,fileinfo,filter,gd,grpc,iconv,intl,mbregex,mbstring,opcache,openssl,pcntl,pdo,pdo_pgsql,pdo_sqlite,pgsql,phar,posix,readline,session,simplexml,sockets,sodium,sqlite3,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
+bcmath,calendar,ctype,curl,dba,dom,exif,fileinfo,filter,gd,grpc,iconv,intl,mbregex,mbstring,opcache,openssl,pcntl,pdo,pdo_sqlite,phar,posix,readline,session,simplexml,sockets,sodium,sqlite3,tokenizer,xml,xmlreader,xmlwriter,xsl,zip,zlib
