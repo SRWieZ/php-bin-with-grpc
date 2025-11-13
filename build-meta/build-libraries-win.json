@@ -1,4 +1,7 @@
 [
+    "lib-base",
+    "micro",
+    "php",
     "zlib",
     "openssl",
     "libssh2",
@@ -7,8 +10,13 @@
     "nghttp2",
     "curl",
     "libpng",
+    "libwebp",
+    "libjpeg",
     "bzip2",
+    "freetype",
+    "onig",
     "sqlite",
+    "libsodium",
     "xz",
     "libzip"
 ]
