@@ -31,11 +31,6 @@ jobs:
   build:
     name: ${{ matrix.version }} ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    if: |
-      inputs.os == 'all' ||
-      (inputs.os == 'linux' && contains(matrix.os, 'ubuntu')) ||
-      (inputs.os == 'macos' && contains(matrix.os, 'macos')) ||
-      (inputs.os == 'windows' && matrix.os == 'windows-latest')
 
     strategy:
       fail-fast: false
@@ -47,6 +42,25 @@ jobs:
     continue-on-error: true
 
     steps:
+      - name: Check if should build for this OS
+        shell: bash
+        run: |
+          SHOULD_BUILD=false
+          if [ "${{ inputs.os }}" == "all" ]; then
+            SHOULD_BUILD=true
+          elif [ "${{ inputs.os }}" == "linux" ] && [[ "${{ matrix.os }}" == *"ubuntu"* ]]; then
+            SHOULD_BUILD=true
+          elif [ "${{ inputs.os }}" == "macos" ] && [[ "${{ matrix.os }}" == *"macos"* ]]; then
+            SHOULD_BUILD=true
+          elif [ "${{ inputs.os }}" == "windows" ] && [ "${{ matrix.os }}" == "windows-latest" ]; then
+            SHOULD_BUILD=true
+          fi
+
+          if [ "$SHOULD_BUILD" == "false" ]; then
+            echo "Skipping build for ${{ matrix.os }} (selected: ${{ inputs.os }})"
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
 
       - name: Set SPC binary name
