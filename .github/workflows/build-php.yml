@@ -164,12 +164,13 @@ jobs:
           echo "PHP_EXTENSIONS=$EXTENSIONS" >> $GITHUB_ENV
           echo "PHP_EXT_HASH=$EXT_HASH" >> $GITHUB_ENV
 
-      - name: Remove gRPC extension for Windows
+      - name: Remove Unix-only extensions for Windows
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
-          EXTENSIONS_NO_GRPC=$(php -r "echo str_replace(['grpc,', ',grpc'], '', getenv('PHP_EXTENSIONS'));")
-          echo "PHP_EXTENSIONS=$EXTENSIONS_NO_GRPC" >> $GITHUB_ENV
+          # Remove Unix-only extensions: grpc (requires DLL on Windows), pcntl, posix, readline, xsl
+          EXTENSIONS_WIN=$(php -r "echo str_replace(['grpc,', ',grpc', 'pcntl,', ',pcntl', 'posix,', ',posix', 'readline,', ',readline', 'xsl,', ',xsl'], '', getenv('PHP_EXTENSIONS'));")
+          echo "PHP_EXTENSIONS=$EXTENSIONS_WIN" >> $GITHUB_ENV
 
       - name: Read PHP libraries from file
         id: read-libs
