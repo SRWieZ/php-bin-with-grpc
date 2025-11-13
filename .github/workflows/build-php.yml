@@ -26,7 +26,7 @@ jobs:
       #      max-parallel: 1
       matrix:
         version: [ "8.3", "8.4" ]
-        os: ["macos-15-intel", "macos-15", "ubuntu-24.04", "ubuntu-24.04-arm" ]
+        os: ["macos-15-intel", "macos-15", "ubuntu-24.04", "ubuntu-24.04-arm", "windows-latest" ]
 
     continue-on-error: true
 
@@ -133,6 +133,13 @@ jobs:
           EXT_HASH=$(php -r "echo md5(getenv('EXTENSIONS'));")
           echo "PHP_EXTENSIONS=$EXTENSIONS" >> $GITHUB_ENV
           echo "PHP_EXT_HASH=$EXT_HASH" >> $GITHUB_ENV
+
+      - name: Remove gRPC extension for Windows
+        if: matrix.os == 'windows-latest'
+        shell: bash
+        run: |
+          EXTENSIONS_NO_GRPC=$(php -r "echo str_replace(['grpc,', ',grpc'], '', getenv('PHP_EXTENSIONS'));")
+          echo "PHP_EXTENSIONS=$EXTENSIONS_NO_GRPC" >> $GITHUB_ENV
 
       - name: Read PHP libraries from file
         id: read-libs
