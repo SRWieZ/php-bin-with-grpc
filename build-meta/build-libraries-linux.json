@@ -16,10 +16,9 @@
     "grpc",
     "icu",
     "onig",
+    "sqlite",
     "ncurses",
     "libedit",
     "libxslt",
-    "postgresql",
-    "sqlite",
     "libzip"
 ]
