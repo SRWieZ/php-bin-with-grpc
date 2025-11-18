@@ -25,7 +25,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SPC_VERSION: 2.7.6
+  SPC_VERSION: 2.7.7
 
 jobs:
   build:
@@ -194,13 +194,13 @@ jobs:
         if: steps.cache-spc-downloads.outputs.cache-hit != 'true'
         run: |
           cd ../static-php-cli
-          ./bin/${{ env.SPC_BINARY }} download --with-php=${{ matrix.version }} --for-extensions "${{ env.PHP_EXTENSIONS }}"
+          ./bin/${{ env.SPC_BINARY }} download --with-php=${{ matrix.version }} --for-extensions "${{ env.PHP_EXTENSIONS }}" --prefer-pre-built
           cd ../php-bin
 
       - name: Build PHP
         run: |
           cd ../static-php-cli
-          ./bin/${{ env.SPC_BINARY }} build --build-cli "${{ env.PHP_EXTENSIONS }}" --with-libs="${{ env.PHP_LIBS }}" --debug
+          ./bin/${{ env.SPC_BINARY }} build --build-cli "${{ env.PHP_EXTENSIONS }}" --with-libs="${{ env.PHP_LIBS }}"
           cd ../php-bin
 
       - name: Get built PHP version
