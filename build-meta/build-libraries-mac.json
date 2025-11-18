@@ -4,6 +4,7 @@
     "libiconv",
     "zlib",
     "libxml2",
+    "frankenphp",
     "php",
     "openssl",
     "libcares",
