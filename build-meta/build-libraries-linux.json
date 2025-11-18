@@ -1,6 +1,7 @@
 [
     "lib-base",
     "micro",
+    "frankenphp",
     "php",
     "zlib",
     "openssl",
