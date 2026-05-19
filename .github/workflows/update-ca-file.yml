@@ -6,15 +6,19 @@ on:
     - cron:  '0 0 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   fetch-ca-file:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Check out repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      with:
+        # Credentials must persist so the inline `git push` below can authenticate.
+        persist-credentials: true
 
     - name: Fetch the latest CA file
       run: |
@@ -46,6 +50,8 @@ jobs:
     needs: fetch-ca-file
     if: needs.fetch-ca-file.outputs.changed == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Get the latest release
         id: latestrelease
@@ -63,11 +69,9 @@ jobs:
 
       - name: Create a new release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.4.1
         with:
           tag_name: v${{ env.VERSION }}
-          release_name: v${{ env.VERSION }}
+          name: v${{ env.VERSION }}
           draft: true
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
