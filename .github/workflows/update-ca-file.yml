@@ -15,7 +15,7 @@ jobs:
       contents: write
     steps:
     - name: Check out repository
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         # Credentials must persist so the inline `git push` below can authenticate.
         persist-credentials: true
@@ -69,7 +69,7 @@ jobs:
 
       - name: Create a new release
         id: create_release
-        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.4.1
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v2.4.1
         with:
           tag_name: v${{ env.VERSION }}
           name: v${{ env.VERSION }}
