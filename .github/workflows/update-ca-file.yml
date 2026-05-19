@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      changed: ${{ steps.cafile.outputs.changed }}
     steps:
     - name: Check out repository
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -28,23 +30,20 @@ jobs:
     - name: Check if the CA file has changed
       id: cafile
       run: |
-        CHANGED=$(git diff --name-only | grep cacert.pem || true)
-        if [[ ! -z "$CHANGED" ]]; then
-          echo "CHANGED=true" >> $GITHUB_ENV
+        if git diff --name-only | grep -q '^cacert\.pem$'; then
+          echo "changed=true" >> $GITHUB_OUTPUT
         else
-          echo "CHANGED=false" >> $GITHUB_ENV
+          echo "changed=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Commit changes
-      if: env.CHANGED == 'true'
+      if: steps.cafile.outputs.changed == 'true'
       run: |
         git config --local user.email "srwiez@gmail.com"
         git config --local user.name "SRWieZ"
         git add cacert.pem
         git commit -m "Update CA file"
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     needs: fetch-ca-file
@@ -57,7 +56,10 @@ jobs:
         id: latestrelease
         run: |
           LATEST_VERSION=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
-          | jq -r .tag_name)
+            | jq -r .tag_name)
+          # Strip leading 'v' so the bumper below produces a clean semver.
+          LATEST_VERSION=${LATEST_VERSION#v}
+          echo "version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
